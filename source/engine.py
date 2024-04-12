@@ -5,4 +5,4 @@ if __name__ == "__main__":
     while True:
         if game.play():
             break
-    # print(game.into_ml_matrix())
+    print(game.into_ml_matrix())

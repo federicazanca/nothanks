@@ -1,4 +1,5 @@
 from game_state import GameState
+import numpy as np
 
 class Player:
     """Player class to define player's properties."""
@@ -14,11 +15,10 @@ class Player:
         """Returns the ML column representation."""
         player_col = [float(self.chips)]
         for i in range(3,36):
-            for n in self.cards:
-                if self.cards(n) == i:
-                    player_col.append(1.0)
-                else:
-                    player_col.append(0.0)
+            if i in self.cards:
+                player_col.append(1.0)
+            else:
+                player_col.append(0.0)
         return np.array(player_col)
     
     def score(self) -> int:

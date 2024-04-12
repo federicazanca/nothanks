@@ -20,6 +20,7 @@ class GameState:
             player.chips += self.pool
             self.pool = 0
             if len(self.deck) == 0:
+                self.card = 0
                 return True
             self.card = self.deck.pop()
         else:
@@ -44,8 +45,7 @@ class GameState:
                 deck_col.append(1.0)
             else:
                 deck_col.append(0.0)
-        
         matrix = np.array([deck_col])
         for player in self.players:
-            matrix = np.append(matrix, player.into_ml_column(), axis=1)
+            matrix = np.append(matrix, [player.into_ml_column()], axis=0)
         return matrix
