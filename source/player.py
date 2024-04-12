@@ -1,12 +1,11 @@
-"""Player class to define player's properties."""
 from game_state import GameState
 
 class Player:
-    def __init__(self, chips):
+    """Player class to define player's properties."""
+    def __init__(self, chips) -> None:
         self.chips = chips
         self.cards = []
-        pass
 
-    def play(self, game_state:GameState):
+    def play(self, game_state: GameState) -> bool:
+        """Returns True if player takes, False otherwise."""
         pass
-
