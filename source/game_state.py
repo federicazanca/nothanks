@@ -1,10 +1,11 @@
-from player import Player
 import random
 import numpy as np
 
 class GameState:
     """Represents a game and simulates it."""
+
     def __init__(self) -> None:
+        from player import Player
         self.players = [Player(11) for _ in range(5)]
         self.pool = 0
         self.deck = self._generate_deck()
