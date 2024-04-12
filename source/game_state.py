@@ -1,5 +1,6 @@
 from player import Player
 import random
+import numpy as np
 
 class GameState:
     """Represents a game and simulates it."""
@@ -33,3 +34,17 @@ class GameState:
         deck = [i for i in range(3, 36)]
         random.shuffle(deck)
         return deck[:-9]
+    
+    def into_ml_matrix(self):
+        """Return the ML representation."""
+        deck_col = [float(self.pool)]
+        for i in range(3,36):
+            if self.card == i:
+                deck_col.append(1.0)
+            else:
+                deck_col.append(0.0)
+        
+        matrix = np.array([deck_col])
+        for player in self.players:
+            matrix = np.append(matrix, player.into_ml_column(), axis=1)
+        return matrix

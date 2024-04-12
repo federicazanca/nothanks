@@ -11,7 +11,7 @@ class Player:
         """Returns True if player takes, False otherwise."""
         return self.chips == 0
 
-    def into_ml_column(self) -> list[float]:
+    def into_ml_column(self) -> np.ndarray[float]:
         """Returns the ML column representation."""
         player_col = [float(self.chips)]
         for i in range(3,36):
@@ -20,4 +20,4 @@ class Player:
                     player_col.append(1.0)
                 else:
                     player_col.append(0.0)
-        return player_col
+        return np.array(player_col)
