@@ -1,12 +1,14 @@
+from player_brain import PlayerBrain
 import random
 import numpy as np
 
 class GameState:
     """Represents a game and simulates it."""
 
-    def __init__(self) -> None:
+    def __init__(self, brains: list[PlayerBrain]) -> None:
         from player import Player
-        self.players = [Player(11) for _ in range(5)]
+        random.shuffle(brains)
+        self.players = [Player(brain, 11) for brain in brains]
         self.pool = 0
         self.deck = self._generate_deck()
         self.card = self.deck.pop()
@@ -15,7 +17,7 @@ class GameState:
     def play(self) -> bool:
         """Simulates an action in the game. Returns True if game is finished."""
         player = self.players[self.active_player_index]
-        if player.play(self):
+        if player.chips == 0 or player.play(self):
             player.cards.append(self.card)
             player.chips += self.pool
             self.pool = 0
@@ -37,7 +39,7 @@ class GameState:
         random.shuffle(deck)
         return deck[:-9]
     
-    def into_ml_matrix(self):
+    def into_ml_matrix(self) -> np.ndarray:
         """Return the ML representation."""
         deck_col = [float(self.pool)]
         for i in range(3,36):
