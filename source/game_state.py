@@ -1,5 +1,6 @@
 from player_brain import PlayerBrain
 from enum import Enum
+from typing import Self
 import random
 import numpy as np
 
@@ -11,11 +12,14 @@ class GameAction(Enum):
 class GameState:
     """Represents a game and simulates it."""
 
-    def __init__(self, brains: list[PlayerBrain]) -> None:
+    def __init__(self, brains: list[PlayerBrain], deck: list[int] = None) -> None:
+        """Creates a new game for the given Brains, using the given deck or shuffling a new one otherwise."""
         from player import Player
+        if deck == None:
+            deck = self._generate_deck()
         self.players: list[Player] = [Player(brain, 11) for brain in brains]
         self.pool: int = 0
-        self.deck: list[int] = self._generate_deck()
+        self.deck: list[int] = deck
         self.card: int | None = self.deck.pop()
         self.active_player_index: int = 0
     
