@@ -35,12 +35,13 @@ class Player:
     def score(self) -> int:
         """Returns the score of the player."""
         score = 0
-        self.cards.sort(reverse=True)
+        cards = self.cards.copy()
+        cards.sort(reverse=True)
         card = 0
         while True:
-            if len(self.cards) == 0:
+            if len(cards) == 0:
                 break
-            next_card = self.cards.pop()
+            next_card = cards.pop()
             if not next_card + 1 == card:
                 score += card
             card = next_card
