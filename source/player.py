@@ -1,6 +1,11 @@
 from game_state import GameState
 from player_brain import PlayerBrain
+from enum import Enum
 import numpy as np
+
+class PlayerAction(Enum):
+    PASS = 0
+    TAKE = 1
 
 class Player:
     """Player class to define player's properties."""
@@ -10,9 +15,12 @@ class Player:
         self.chips = chips
         self.cards = []
 
-    def play(self, game_state: GameState) -> bool:
-        """Returns True if player takes, False otherwise."""
-        return self.brain.decide(game_state.into_ml_matrix()) >= 0.5
+    def play(self, game_state: GameState) -> PlayerAction:
+        """Returns the action decided."""
+        if self.brain.decide(game_state.into_ml_matrix()) >= 0.5:
+            return PlayerAction.TAKE
+        else:
+            return PlayerAction.PASS
 
     def into_ml_column(self) -> np.ndarray[float]:
         """Returns the ML column representation."""
