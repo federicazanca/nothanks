@@ -1,4 +1,5 @@
 import numpy as np
+from sklearn.linear_model import LinearRegression
 
 class PlayerBrain:
     """Base class for simulating the player decisions."""
@@ -16,6 +17,20 @@ class DummyPlayerBrain(PlayerBrain):
 
     def decide(self, state: np.ndarray) -> float:
         return 0.0
+    
+    def train(self, state: np.ndarray, expected: float, intensity: float) -> None:
+        pass
+
+class LinearRegressionBrain(PlayerBrain):
+    def __init__(self) -> None:
+        self.model = LinearRegression()
+        self.model.fit([[0.0]*34*6], [0.0])
+
+    def decide(self, state: np.ndarray) -> float:
+        input = []
+        for column in state:
+            input.extend(column)
+        return self.model.predict([input])
     
     def train(self, state: np.ndarray, expected: float, intensity: float) -> None:
         pass

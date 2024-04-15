@@ -1,8 +1,8 @@
 from game_state import GameState, GameAction
-from player_brain import DummyPlayerBrain
-
+from player_brain import LinearRegressionBrain
+ 
 if __name__ == "__main__":
-    brains = [DummyPlayerBrain() for _ in range(5)]
+    brains = [LinearRegressionBrain() for _ in range(5)]
     game = GameState(brains)
     replay = GameState(brains, deck=game.deck)
 

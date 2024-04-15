@@ -1,6 +1,5 @@
 from player_brain import PlayerBrain
 from enum import Enum
-from typing import Self
 import random
 import numpy as np
 
